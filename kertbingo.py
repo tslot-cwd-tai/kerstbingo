@@ -84,15 +84,10 @@ def main():
                     print("WAV-bestand ontbreekt.")
                     return
 
-                # thread = threading.Thread(target=audio_afspelen, args=(AUDIOBESTAND,), daemon=True)
                 thread = start_audio(AUDIOBESTAND)
-                # thread.start()
 
                 input("Van welke artiest is dit nummer?")
 
-                # _stop_flag = True
-                # time.sleep(0.2)
-                
                 print(f'Antwoord: {vraag["antwoord"]}')
                 stop_audio(thread)
                 input("")
