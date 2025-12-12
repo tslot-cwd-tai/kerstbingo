@@ -69,18 +69,20 @@ def kerstbingo(vragenlijst: list) -> None:
             
             open_vragen = [v for v in vragenlijst if not v.gedaan and v.categorie == invoer]
 
-            if not open_vragen:
-                break
+            if open_vragen:
+                huidige_vraag = open_vragen[0]
+                huidige_vraag.gedaan = "x"
 
-            huidige_vraag = open_vragen[0]
-            huidige_vraag.gedaan = "x"
+                print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
+                input("ENTER voor het antwoord...")
+                print(f'Antwoord: \033[1m{huidige_vraag.antwoord}\033[0m')
+                input("")
+                os.system("cls")
+            else:
+                print(f'Er zijn geen openstaande vragen meer in categorie {invoer}.')
+                input("")
+                os.system("cls")
 
-            print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
-            input("ENTER voor het antwoord...")
-            print(f'Antwoord: \033[1m{huidige_vraag.antwoord}\033[0m')
-            input("")
-            os.system("cls")
-            
     #             AUDIOBESTAND = "test.wav"
     #             global _stop_flag
 
@@ -105,6 +107,8 @@ def kerstbingo(vragenlijst: list) -> None:
     #         schrijf_afgevinkt(vraag)
     
         print("\nAlle openstaande vragen zijn behandeld.")
+        input("")
+        os.system("cls")
 
     except KeyboardInterrupt:
         os.system("cls")  
