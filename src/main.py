@@ -6,6 +6,7 @@ import threading
 from dataclasses import dataclass
 from pathlib import Path
 from terminal_effects import print_kerstboom, print_sneeuw
+from play_audio import start_audio, stop_audio
 
 _stop_flag = False
 VRAGENLIJST_BESTAND = Path("vragen.csv")
@@ -74,10 +75,13 @@ def kerstbingo(vragenlijst: list) -> None:
                 huidige_vraag.gedaan = "x"
 
                 print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
+                
+                
                 input("ENTER voor het antwoord...")
                 print(f'Antwoord: \033[1m{huidige_vraag.antwoord}\033[0m')
                 input("")
                 os.system("cls")
+
             else:
                 print(f'Er zijn geen openstaande vragen meer in categorie {invoer}.')
                 input("")
