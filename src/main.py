@@ -5,6 +5,7 @@ import time
 import threading
 from dataclasses import dataclass
 from pathlib import Path
+from terminal_effects import print_kerstboom, print_sneeuw
 
 _stop_flag = False
 VRAGENLIJST_BESTAND = Path("vragen.csv")
@@ -44,7 +45,11 @@ def kerstbingo(vragenlijst: list) -> None:
         while any(not v.gedaan for v in vragenlijst):
 
             invoer = ""
-            os.system("cls")  # Wis het scherm voordat je een nieuwe vraag toont
+
+            # Welkom bericht in de terminal #
+            print_kerstboom()
+            print_sneeuw()
+            print("\033[1m\033[31mWelkom bij deel 2 van de TAI-NW Kerstbingo! \033[0m \033[0m \n")
 
             while True:
                 invoer = input("Voer een categorie in: ").strip()
@@ -58,12 +63,10 @@ def kerstbingo(vragenlijst: list) -> None:
                     if invoer in ["1", "2", "3", "4"]:
                         break
                     else:
-                        os.system("cls")  
                         print("Ongeldige invoer, alleen een getal gelijk aan of lager dan 4 is toegestaan.")
                 else:
-                    os.system("cls")  
                     print("Ongeldige invoer, alleen een getal is toegestaan.")
-
+            
             open_vragen = [v for v in vragenlijst if not v.gedaan and v.categorie == invoer]
 
             if not open_vragen:
@@ -72,9 +75,11 @@ def kerstbingo(vragenlijst: list) -> None:
             huidige_vraag = open_vragen[0]
             huidige_vraag.gedaan = "x"
 
-            os.system("cls")
-            print(f'Vraag: {huidige_vraag.vraag}')
+            print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
+            input("ENTER voor het antwoord...")
+            print(f'Antwoord: \033[1m{huidige_vraag.antwoord}\033[0m')
             input("")
+            os.system("cls")
             
     #             AUDIOBESTAND = "test.wav"
     #             global _stop_flag
@@ -109,4 +114,5 @@ if __name__ == "__main__":
     if not VRAGENLIJST_BESTAND.exists():
         print("CSV-bestand ontbreekt.")
     else:
+        os.system("cls")  
         kerstbingo(vragenlijst=lees_vragen(VRAGENLIJST_BESTAND))
