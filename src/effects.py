@@ -21,7 +21,6 @@ def print_kerstboom():
        \033[33m|||\033[0m
     """
     print(kerstboom)
-    print("\033[31mWelkom bij de kerstquiz!\033[0m\n")
 
 def sneeuw_lijn(breedte=50):
     return "".join(random.choice([" ", "\u2744"]) for _ in range(breedte))
@@ -78,7 +77,6 @@ def main():
         # scherm schoonmaken
         os.system("cls")  # Windows
         print_kerstboom()
-        print_sneeuw(10, 50)
 
         # toon vraag
         print(vraag["vraag"])
@@ -98,7 +96,7 @@ def main():
         schrijf_afgevinkt(vraag)
 
     os.system("cls")
-    print_kerstboom()
+
     print("\033[32mAlle openstaande vragen zijn behandeld! Fijne Kerst!\033[0m")
 
 if __name__ == "__main__":
