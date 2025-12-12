@@ -1,10 +1,13 @@
 categorie;vraag;bijlage;antwoord;gedaan
-2;In welke taal is dit tooltje geschreven?;;Python;
-2;Wie komt er met kerst langs?;;De kerstman;
-2;Wat is de nieuwste TIA-portal versie?;;V21;
-2;Wie is de directeur van Croonwolter&dros? ;;PJ;
-1;Wie is de zanger van dit nummer?;C:\Projects\Scripts\kerstbingo-terminal-app\test.wav;Ali B;
-1;Wie is de zanger van dit nummer?;C:\Projects\Scripts\kerstbingo-terminal-app\test.wav;Ali C;
-1;Wie is de zanger van dit nummer?;C:\Projects\Scripts\kerstbingo-terminal-app\test.wav;Ali D;
-1;Wie is de zanger van dit nummer?;C:\Projects\Scripts\kerstbingo-terminal-app\test.wav;Ali E;
-1;Wie is de zanger van dit nummer?;C:\Projects\Scripts\kerstbingo-terminal-app\test.wav;Ali F;
+1;Cat 1 vraag 1;Q:\00.Afdeling\090.Uitjes\Kerstbingo\Muziek\test.wav;1;
+1;Cat 1 vraag 2;Q:\00.Afdeling\090.Uitjes\Kerstbingo\Muziek\test.wav;2;
+1;Cat 1 vraag 3;Q:\00.Afdeling\090.Uitjes\Kerstbingo\Muziek\test.wav;3;
+2;Cat 2 vraag 1;;4;
+2;Cat 2 vraag 2;;5;
+2;Cat 2 vraag 3;;6;
+3;Cat 3 vraag 1;Q:\00.Afdeling\090.Uitjes\Kerstbingo\Afbeelding\test.jpg;7;
+3;Cat 3 vraag 2;Q:\00.Afdeling\090.Uitjes\Kerstbingo\Afbeelding\test.jpg;8;
+3;Cat 3 vraag 3;Q:\00.Afdeling\090.Uitjes\Kerstbingo\Afbeelding\test.jpg;9;
+4;Cat 4 vraag 1;;10;
+4;Cat 4 vraag 2;;11;
+4;Cat 4 vraag 3;;12;
