@@ -1,12 +1,14 @@
 import csv
 import os
-import winsound
-import time
-import threading
+
 from dataclasses import dataclass
 from pathlib import Path
 from terminal_effects import print_kerstboom, print_sneeuw
 from play_audio import start_audio, stop_audio
+
+import winsound
+import time
+import threading
 
 _stop_flag = False
 VRAGENLIJST_BESTAND = Path("vragen.csv")
@@ -38,6 +40,7 @@ def lees_vragen(vragenlijst_bestand: Path) -> list:
     return vragen
 
 def kerstbingo(vragenlijst: list) -> None:
+    global _stop_flag
     try:
         if not vragenlijst:
             print("Er zijn geen openstaande vragen meer.")
@@ -46,6 +49,7 @@ def kerstbingo(vragenlijst: list) -> None:
         while any(not v.gedaan for v in vragenlijst):
 
             invoer = ""
+            thread = None
 
             # Welkom bericht in de terminal #
             print_kerstboom()
@@ -73,11 +77,23 @@ def kerstbingo(vragenlijst: list) -> None:
             if open_vragen:
                 huidige_vraag = open_vragen[0]
                 huidige_vraag.gedaan = "x"
-
-                print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
                 
+                if huidige_vraag.bestand.exists() & huidige_vraag.bestand.suffix.lower() == ".wav":
+                    print(f'{huidige_vraag.bestand.resolve()} wordt afgespeeld...\n')
+                    
+                    thread = start_audio(huidige_vraag.bestand)
+                    print(f'Muziekvraag: \033[1m{huidige_vraag.vraag}\033[0m')
+                elif huidige_vraag.bestand.exists() & huidige_vraag.bestand.suffix.lower() in (".jpg",".png"):
+                    print(f'Afbeelding: \033[1m{huidige_vraag.vraag}\033[0m')
+
+                else:
+                    print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
                 
                 input("ENTER voor het antwoord...")
+
+                if thread:
+                    stop_audio(thread)
+                    
                 print(f'Antwoord: \033[1m{huidige_vraag.antwoord}\033[0m')
                 input("")
                 os.system("cls")

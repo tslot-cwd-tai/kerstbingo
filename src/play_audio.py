@@ -3,9 +3,9 @@ import time
 import threading
 from pathlib import Path
 
-def audio_afspelen(AUDIOBESTAND: Path) -> None:
+def audio_afspelen(AUDIOBESTAND: str) -> None:
     global _stop_flag
-    winsound.PlaySound(AUDIOBESTAND.name, winsound.SND_FILENAME | winsound.SND_LOOP | winsound.SND_ASYNC)
+    winsound.PlaySound(AUDIOBESTAND, winsound.SND_FILENAME | winsound.SND_LOOP | winsound.SND_ASYNC)
     while not _stop_flag:
         time.sleep(0.1)
     # Stop audio expliciet
@@ -14,7 +14,8 @@ def audio_afspelen(AUDIOBESTAND: Path) -> None:
 def start_audio(AUDIOBESTAND: Path) -> threading.Thread:
     global _stop_flag
     _stop_flag = False
-    thread = threading.Thread(target=audio_afspelen, args=(AUDIOBESTAND,), daemon=True)
+    bestand = str(AUDIOBESTAND.resolve())
+    thread = threading.Thread(target=audio_afspelen, args=(bestand,), daemon=True)
     thread.start()
     
     return thread
