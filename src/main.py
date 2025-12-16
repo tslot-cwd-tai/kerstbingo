@@ -6,9 +6,9 @@ from pathlib import Path
 from terminal_effects import print_kerstboom, print_sneeuw
 from play_audio import start_audio, stop_audio
 
-import winsound
-import time
-import threading
+# import winsound
+# import time
+# import threading
 
 _stop_flag = False
 VRAGENLIJST_BESTAND = Path("vragen.csv")
@@ -51,7 +51,7 @@ def kerstbingo(vragenlijst: list) -> None:
             invoer = ""
             thread = None
 
-            # Welkom bericht in de terminal #
+            # Welkom bericht, altijd weergeven
             print_kerstboom()
             print_sneeuw()
             print("\033[1m\033[31mWelkom bij deel 2 van de TAI-NW Kerstbingo! \033[0m \033[0m \n")
@@ -72,20 +72,24 @@ def kerstbingo(vragenlijst: list) -> None:
                 else:
                     print("Ongeldige invoer, alleen een getal is toegestaan.")
             
+            # Vind openstaande vraag
             open_vragen = [v for v in vragenlijst if not v.gedaan and v.categorie == invoer]
 
+            # Open vraag gevonden
             if open_vragen:
                 huidige_vraag = open_vragen[0]
                 huidige_vraag.gedaan = "x"
                 
-                if huidige_vraag.bestand.exists() & huidige_vraag.bestand.suffix.lower() == ".wav":
-                    print(f'{huidige_vraag.bestand.resolve()} wordt afgespeeld...\n')
-                    
+                # Check bestand: audio
+                if huidige_vraag.bestand.exists() & (huidige_vraag.bestand.suffix.lower() == ".wav"):
                     thread = start_audio(huidige_vraag.bestand)
                     print(f'Muziekvraag: \033[1m{huidige_vraag.vraag}\033[0m')
-                elif huidige_vraag.bestand.exists() & huidige_vraag.bestand.suffix.lower() in (".jpg",".png"):
+
+                # Check bestand: afbeelding
+                elif huidige_vraag.bestand.exists() & (huidige_vraag.bestand.suffix.lower() in (".jpg",".png")):
                     print(f'Afbeelding: \033[1m{huidige_vraag.vraag}\033[0m')
 
+                # Geen bestand, enkel een vraag
                 else:
                     print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
                 
@@ -98,34 +102,12 @@ def kerstbingo(vragenlijst: list) -> None:
                 input("")
                 os.system("cls")
 
+            # Geen open vraag gevonden
             else:
                 print(f'Er zijn geen openstaande vragen meer in categorie {invoer}.')
                 input("")
                 os.system("cls")
 
-    #             AUDIOBESTAND = "test.wav"
-    #             global _stop_flag
-
-    #             if not os.path.exists(AUDIOBESTAND):
-    #                 print("WAV-bestand ontbreekt.")
-    #                 return
-
-    #             thread = start_audio(AUDIOBESTAND)
-
-    #             input("Van welke artiest is dit nummer?")
-
-    #             print(f'Antwoord: {vraag["antwoord"]}')
-    #             stop_audio(thread)
-    #             input("")
-
-    #         if invoer == "2":
-    #             print(f'Vraag {vraag["categorie"]}: {vraag["vraag"]}')
-    #             input("")
-    #             print(f'Antwoord: {vraag["antwoord"]}')
-    #             input("")
-
-    #         schrijf_afgevinkt(vraag)
-    
         print("\nAlle openstaande vragen zijn behandeld.")
         input("")
         os.system("cls")
