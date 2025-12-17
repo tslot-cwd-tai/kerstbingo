@@ -1,14 +1,12 @@
 import csv
 import os
-
 from dataclasses import dataclass
 from pathlib import Path
-from terminal_effects import print_kerstboom, print_sneeuw
-from play_audio import start_audio, stop_audio
 
-# import winsound
-# import time
-# import threading
+# Local library
+from _terminal_effects import print_kerstboom, print_sneeuw
+from _play_audio import start_audio, stop_audio
+from _show_image import ImageOverlay
 
 _stop_flag = False
 VRAGENLIJST_BESTAND = Path("vragen.csv")
@@ -87,7 +85,9 @@ def kerstbingo(vragenlijst: list) -> None:
 
                 # Check bestand: afbeelding
                 elif huidige_vraag.bestand.exists() & (huidige_vraag.bestand.suffix.lower() in (".jpg",".png")):
-                    print(f'Afbeelding: \033[1m{huidige_vraag.vraag}\033[0m')
+                    overlay = ImageOverlay()
+                    overlay.open(huidige_vraag.bestand)
+                    print(f'\033[1m{huidige_vraag.vraag}\033[0m')
 
                 # Geen bestand, enkel een vraag
                 else:
@@ -97,6 +97,8 @@ def kerstbingo(vragenlijst: list) -> None:
 
                 if thread:
                     stop_audio(thread)
+                if overlay:
+                    overlay.close()
                     
                 print(f'Antwoord: \033[1m{huidige_vraag.antwoord}\033[0m')
                 input("")
@@ -122,31 +124,3 @@ if __name__ == "__main__":
     else:
         os.system("cls")  
         kerstbingo(vragenlijst=lees_vragen(VRAGENLIJST_BESTAND))
-
-
-
-
-
-# import tkinter as tk
-# from PIL import Image, ImageTk
-
-# bestand = r"C:\Users\iw00\Pictures\figuur76.png"
-
-# root = tk.Tk()
-# root.attributes("-fullscreen", True)
-# root.configure(bg="black")
-
-# img = Image.open(bestand)
-# screen_width = root.winfo_screenwidth()
-# screen_height = root.winfo_screenheight()
-
-# # Nieuw: gebruik Resampling.LANCZOS
-# img = img.resize((screen_width, screen_height), Image.Resampling.LANCZOS)
-# photo = ImageTk.PhotoImage(img)
-
-# label = tk.Label(root, image=photo, bg="black")
-# label.pack(expand=True)
-
-# # Sluit op ENTER
-# root.bind("<Return>", lambda e: root.destroy())
-# root.mainloop()
