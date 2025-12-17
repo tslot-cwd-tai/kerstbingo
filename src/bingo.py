@@ -48,6 +48,7 @@ def kerstbingo(vragenlijst: list) -> None:
 
             invoer = ""
             thread = None
+            overlay = None
 
             # Welkom bericht, altijd weergeven
             print_kerstboom()
@@ -94,15 +95,16 @@ def kerstbingo(vragenlijst: list) -> None:
                     print(f'Vraag: \033[1m{huidige_vraag.vraag}\033[0m')
                 
                 input("ENTER voor het antwoord...")
-
-                if thread:
-                    stop_audio(thread)
-                if overlay:
-                    overlay.close()
                     
                 print(f'Antwoord: \033[1m{huidige_vraag.antwoord}\033[0m')
                 input("")
                 os.system("cls")
+
+                # Stop audio of sluit overlay indien geopend
+                if thread:
+                    stop_audio(thread)
+                if overlay:
+                    overlay.close()
 
             # Geen open vraag gevonden
             else:
