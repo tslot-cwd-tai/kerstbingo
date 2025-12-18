@@ -69,10 +69,10 @@ def kerstbingo(vragenlijst: list) -> None:
                     exit(0)
 
                 if invoer.isdigit():
-                    if invoer in ["1", "2", "3", "4"]:
+                    if invoer in ["0", "1", "2", "3"]:
                         break
                     else:
-                        print("Ongeldige invoer, alleen een getal gelijk aan of lager dan 4 is toegestaan.")
+                        print("Ongeldige invoer, alleen een getal gelijk aan of lager dan 3 is toegestaan.")
                 else:
                     print("Ongeldige invoer, alleen een getal is toegestaan.")
             
