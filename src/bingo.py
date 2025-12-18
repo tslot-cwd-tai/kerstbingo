@@ -19,6 +19,11 @@ class vraag():
     antwoord: str
     gedaan: str
 
+    def __post_init__(self):
+        # Vervang '\n' uit CSV door echte newlines
+        self.vraag = self.vraag.replace("\\n", "\n")
+        self.antwoord = self.antwoord.replace("\\n", "\n")
+
 def lees_vragen(vragenlijst_bestand: Path) -> list:
     vragen = []
     
